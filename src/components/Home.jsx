@@ -7,6 +7,7 @@ import axios from "axios";
 function Home() {
   const history = useHistory();
 
+  const [correctLogin, setCorrectLogin] = useState(true);
   const [redirect, setRedirect] = useState(false);
   const [users, setUsers] = useState([]);
   const [userInput, setUserInput] = useState({
@@ -47,16 +48,18 @@ function Home() {
     const currentUser = users.find(
       (users) => users.username === userInput.username
     );
-    setCurrentUserId(currentUser._id);
-    console.log(currentUserId);
+
+    // User does not exist
     if (!currentUser) {
-      console.log("The Username was not found. Please try again");
+      setCorrectLogin(false);
+      return;
+    } else if (currentUser.password === userInput.password) {
+      setCurrentUserId(currentUser._id);
+      setRedirect(true);
     } else {
-      if (currentUser.password === userInput.password) {
-        setRedirect(true);
-      } else {
-        console.log("The password is incorrect");
-      }
+      // User information doesn't match what's in DB
+      setCorrectLogin(false);
+      return;
     }
   }
 
@@ -83,6 +86,12 @@ function Home() {
           </button>
         </div>
       </form>
+      {correctLogin ? null : (
+        <p className="loginInfo">
+          The account may have not been created or your login information is not
+          correct. Please try again!
+        </p>
+      )}
       <Footer />
     </div>
   );

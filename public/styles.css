@@ -119,3 +119,11 @@ form button {
   position: static;
   width: 100px;
 }
+
+.loginInfo {
+  color: red;
+  font-family: "McLaren", cursive;
+  font-weight: 50;
+  margin-top: 50px;
+  text-align: center;
+}

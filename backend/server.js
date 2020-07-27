@@ -28,10 +28,8 @@ connection.once("open", () => {
 });
 
 // Routes
-const todoListRouter = require("./routes/todoList");
 const userRouter = require("./routes/user");
 
-app.use("/list", todoListRouter);
 app.use("/user", userRouter);
 
 app.listen(port, () => {
