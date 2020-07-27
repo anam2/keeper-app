@@ -6,46 +6,55 @@ import CreateArea from "./CreateArea";
 import Note from "./Note";
 
 function NoteDashboard(props) {
-  const [notes, setNotes] = useState([]);
+  // Gets userID from the paramter
+  const userId = props.match.params.id;
+  const [currentNotes, setCurrentNotes] = useState([
+    {
+      title: "",
+      content: "",
+    },
+  ]);
 
-  // Receives data from backend
-  // Equivilent to componendDidMount componentDidUpdate
-  // Adding [] at the end makes it act like componentDidMount, runs only once
+  //  Gets user information from db
   useEffect(() => {
     setTimeout(() => {
-      axios.get("http://localhost:5000/list/").then((response) => {
-        setNotes([...response.data]);
+      axios.get("http://localhost:5000/user/").then((response) => {
+        const currentUser = response.data.find((user) => user._id === userId);
+        const currentTodoList = currentUser.todoList;
+        setCurrentNotes(currentTodoList);
       }, 1000);
     });
-  }, []);
+  }, [userId]);
 
-  function deleteNote(id) {
+  // Deletes Note
+  function deleteNote(currentUserId, currentNoteId) {
     axios
-      .delete("http://localhost:5000/list/" + id)
-      .then((res) => console.log(res.data));
-
-    // Need to refresh page in order to display deleted item from homepage
-    setNotes((prevNotes) => {
-      return prevNotes.filter((noteItem, index) => {
-        return index !== id;
-      });
-    });
-
+      .delete(
+        "http://localhost:5000/user/delete/" +
+          currentUserId +
+          "/" +
+          currentNoteId
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
     window.location.reload();
   }
 
   return (
     <div>
       <Header />
-      <CreateArea />
-      {notes.map((noteItem, index) => {
+      <CreateArea id={userId} key={userId} />
+      {currentNotes.map((note, index) => {
         return (
           <Note
             key={index}
-            _id={noteItem._id}
-            title={noteItem.title}
-            content={noteItem.content}
-            onDelete={deleteNote}
+            userId={userId}
+            noteId={note._id}
+            title={note.title}
+            content={note.content}
+            deleteNote={deleteNote}
           />
         );
       })}
@@ -55,22 +64,3 @@ function NoteDashboard(props) {
 }
 
 export default NoteDashboard;
-
-// export default class NoteDashboard extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {};
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <Header />
-//         <CreateArea />
-//         <Note />
-//         <Footer />
-//       </div>
-//     );
-//   }
-// }

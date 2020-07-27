@@ -3,11 +3,11 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 function Note(props) {
   function handleOnDelete() {
-    props.onDelete(props._id);
+    props.deleteNote(props.userId, props.noteId);
   }
   return (
     <div className="note">
-      <h1>{props.title}</h1>
+      <h2>{props.title}</h2>
       <p>{props.content}</p>
       <button onClick={handleOnDelete}>
         <DeleteIcon />

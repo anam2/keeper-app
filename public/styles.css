@@ -9,6 +9,7 @@ html {
 body {
   background: #eee;
   padding: 0 16px;
+  position: static;
 }
 
 header {
@@ -18,10 +19,18 @@ header {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
+h1 {
+  color: #f5ba13;
+  font-family: "McLaren", cursive;
+  font-weight: 100;
+  text-align: center;
+}
+
 header h1 {
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
+  text-align: left;
 }
 
 footer {
@@ -34,6 +43,8 @@ footer {
 
 footer p {
   color: #ccc;
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 .note {
   background: #fff;
@@ -99,4 +110,12 @@ form button {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   outline: none;
+}
+
+.userLogin button {
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+  position: static;
+  width: 100px;
 }

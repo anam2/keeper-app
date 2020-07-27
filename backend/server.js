@@ -18,6 +18,7 @@ mongoose.connect(url, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 // Checking to see if mongoose connection was successful
@@ -28,8 +29,10 @@ connection.once("open", () => {
 
 // Routes
 const todoListRouter = require("./routes/todoList");
+const userRouter = require("./routes/user");
 
 app.use("/list", todoListRouter);
+app.use("/user", userRouter);
 
 app.listen(port, () => {
   console.log("Server is running on port: " + port);
