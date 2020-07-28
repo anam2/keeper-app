@@ -77,6 +77,7 @@ function Home() {
           name="password"
           placeholder="Enter your Password"
           onChange={handleChange}
+          type="password"
         />
         <div className="userLogin">
           <button onClick={handleClick}>Create Account</button>

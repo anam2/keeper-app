@@ -58,6 +58,7 @@ function CreateAccount() {
           name="email"
           onChange={handleChange}
           placeholder="Enter your email"
+          type="email"
         />
         <div className="userLogin">
           <button onClick={submitUserInfo}>Sign me up!</button>
