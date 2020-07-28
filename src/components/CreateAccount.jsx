@@ -47,6 +47,7 @@ function CreateAccount() {
           name="username"
           onChange={handleChange}
           placeholder="Enter your username."
+          required
         />
         <input
           name="password"
