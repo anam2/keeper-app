@@ -27,8 +27,8 @@ function Home() {
   // Get's list of users from db
   useEffect(() => {
     setTimeout(() => {
-      axios.get("/api/user").then((response) => {
-        setUsers([...response.data]);
+      axios.get("/api/user").then((listOfUsers) => {
+        setUsers(listOfUsers);
       }, 1000);
     });
   }, []);
