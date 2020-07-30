@@ -18,7 +18,7 @@ function NoteDashboard(props) {
   //  Gets user information from db
   useEffect(() => {
     setTimeout(() => {
-      axios.get("/user").then((response) => {
+      axios.get("/api/user").then((response) => {
         const currentUser = response.data.find((user) => user._id === userId);
         const currentTodoList = currentUser.todoList;
         setCurrentNotes(currentTodoList);
