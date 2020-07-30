@@ -14,6 +14,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const url = process.env.ATLAS_URL;
+// Express.static --> charge of sending static files requests to the client
 app.use(express.static(path.join(__dirname, "client", "build")));
 
 mongoose.connect(url, {
@@ -34,7 +35,8 @@ const userRouter = require("./routes/user");
 
 app.use("/user", userRouter);
 
-app.get("*", (req, res) => {
+// "Catchall" route hander.
+app.all("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
