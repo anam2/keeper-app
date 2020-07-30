@@ -35,8 +35,12 @@ const userRouter = require("./routes/user");
 
 app.use("/user", userRouter);
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
 // "Catchall" route hander.
-app.all("*", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
