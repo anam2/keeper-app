@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
+const proxy = require("http-proxy-middleware");
 
 // Allow to get information from .env file
 require("dotenv").config();
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const url = process.env.ATLAS_URL;
+
 // Express.static --> charge of sending static files requests to the client
 app.use(express.static(path.join(__dirname, "client", "build")));
 
@@ -32,6 +34,12 @@ connection.once("open", () => {
 
 // Routes
 const userRouter = require("./routes/user");
+
+module.exports = function (app) {
+  module.exports = function (app) {
+    app.use(proxy(["/api"], { target: "http://localhost:5000" }));
+  };
+};
 
 app.use("/user", userRouter);
 
