@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
-const proxy = require("http-proxy-middleware");
 
 // Allow to get information from .env file
 require("dotenv").config();
@@ -34,12 +33,6 @@ connection.once("open", () => {
 
 // Routes
 const userRouter = require("./routes/user");
-
-module.exports = function (app) {
-  module.exports = function (app) {
-    app.use(proxy(["/api"], { target: "http://localhost:5000" }));
-  };
-};
 
 app.use("/user", userRouter);
 
