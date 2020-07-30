@@ -15,6 +15,7 @@ import Footer from "./Footer";
 import axios from "axios";
 
 function Home() {
+  const baseUrl = "";
   const [correctLogin, setCorrectLogin] = useState(true);
   const [redirect, setRedirect] = useState(false);
   const [users, setUsers] = useState([]);
@@ -27,7 +28,7 @@ function Home() {
   // Get's list of users from db
   useEffect(() => {
     setTimeout(() => {
-      axios.get("http://localhost:5000/user").then((response) => {
+      axios.get(baseUrl + "/user").then((response) => {
         setUsers([...response.data]);
       }, 1000);
     });
