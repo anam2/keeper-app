@@ -32,9 +32,7 @@ function CreateArea(props) {
       content: "",
     });
     // Posts user with new todoList
-    axios
-      .post("http://localhost:5000/user/update", note)
-      .then((res) => console.log(res.data));
+    axios.post("/api/user/update", note).then((res) => console.log(res.data));
   }
 
   function expand() {

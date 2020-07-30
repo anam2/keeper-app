@@ -29,12 +29,7 @@ function NoteDashboard(props) {
   // Deletes Note
   function deleteNote(currentUserId, currentNoteId) {
     axios
-      .delete(
-        "http://localhost:5000/user/delete/" +
-          currentUserId +
-          "/" +
-          currentNoteId
-      )
+      .delete("/api/user/delete/" + currentUserId + "/" + currentNoteId)
       .then((response) => {
         console.log(response);
       })
