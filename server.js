@@ -10,19 +10,19 @@ require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-mongoose.connect(url, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-});
-
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const url = process.env.ATLAS_URL;
 // Express.static --> charge of sending static files requests to the client
 app.use(express.static(path.join(__dirname, "client", "build")));
+
+mongoose.connect(url, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+});
 
 // Checking to see if mongoose connection was successful
 const connection = mongoose.connection;
