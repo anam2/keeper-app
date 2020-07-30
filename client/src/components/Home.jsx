@@ -47,6 +47,7 @@ function Home() {
 
   // Checking to see if current user's log info exists in db
   function logIn(e) {
+    console.log(users);
     e.preventDefault();
     const currentUser = users.find(
       (users) => users.username === userInput.username
