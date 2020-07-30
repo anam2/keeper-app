@@ -12,18 +12,26 @@ body {
   position: static;
 }
 
+h1 {
+  color: #f5ba13;
+  font-family: "McLaren", cursive;
+  font-weight: 200;
+  text-align: left;
+}
+
+h2 {
+  color: #f5ba13;
+  font-family: "McLaren", cursive;
+  font-weight: 100;
+  text-align: center;
+}
+
+/* Headers and Footers */
 header {
   background-color: #f5ba13;
   margin: auto -16px;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-}
-
-h1 {
-  color: #f5ba13;
-  font-family: "McLaren", cursive;
-  font-weight: 100;
-  text-align: center;
 }
 
 header h1 {
@@ -46,6 +54,8 @@ footer p {
   margin-top: 40px;
   margin-bottom: 20px;
 }
+
+/* Notes Area */
 .note {
   background: #fff;
   border-radius: 7px;
@@ -78,6 +88,7 @@ footer p {
   outline: none;
 }
 
+/* Forms */
 form {
   position: relative;
   width: 480px;
@@ -97,7 +108,7 @@ form textarea {
   font-family: inherit;
   resize: none;
 }
-form button {
+.createArea button {
   position: absolute;
   right: 18px;
   bottom: -18px;
@@ -112,12 +123,15 @@ form button {
   outline: none;
 }
 
-.userLogin button {
-  float: right;
-  margin-right: 10px;
-  margin-top: 10px;
-  position: static;
-  width: 100px;
+/* LogIn Classes */
+
+.loginArea {
+  width: 720px;
+}
+
+.loginArea input {
+  border-style: groove;
+  margin: 10px;
 }
 
 .loginInfo {
@@ -126,4 +140,23 @@ form button {
   font-weight: 50;
   margin-top: 50px;
   text-align: center;
+}
+
+/* Create Account */
+.confirmTextTrue {
+  color: green;
+  font-family: "McLaren", cursive;
+  font-weight: 50;
+  margin: 10px;
+}
+
+.confirmTextFalse {
+  color: red;
+  font-family: "McLaren", cursive;
+  font-weight: 50;
+  margin: 10px;
+}
+
+.signInArea button {
+  margin: 10px 0px 10px 0px;
 }

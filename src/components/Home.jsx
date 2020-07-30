@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import {
+  Container,
+  TextField,
+  Button,
+  Grid,
+  CssBaseline,
+  Avatar,
+} from "@material-ui/core";
+import HighlightIcon from "@material-ui/icons/Highlight";
+
 import Header from "./Header";
 import Footer from "./Footer";
 import axios from "axios";
 
 function Home() {
-  const history = useHistory();
-
   const [correctLogin, setCorrectLogin] = useState(true);
   const [redirect, setRedirect] = useState(false);
   const [users, setUsers] = useState([]);
@@ -25,11 +33,6 @@ function Home() {
     });
   }, []);
 
-  // Redirects to create page
-  function handleClick() {
-    history.push("./create");
-  }
-
   // Updates react hook with user inputted values
   function handleChange(e) {
     const { name, value } = e.target;
@@ -44,6 +47,7 @@ function Home() {
 
   // Checking to see if current user's log info exists in db
   function logIn(e) {
+    console.log("hello");
     e.preventDefault();
     const currentUser = users.find(
       (users) => users.username === userInput.username
@@ -66,33 +70,51 @@ function Home() {
   return (
     <div>
       <Header />
-      <h1>Welcome to Andy's Keeper App</h1>
-      <form>
-        <input
-          name="username"
-          placeholder="Enter your Username"
-          onChange={handleChange}
-        />
-        <input
-          name="password"
-          placeholder="Enter your Password"
-          onChange={handleChange}
-          type="password"
-        />
-        <div className="userLogin">
-          <button onClick={handleClick}>Create Account</button>
-          <button onClick={logIn}>
-            Log In
+      {/* Material UI */}
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <form className="signInArea">
+          <Avatar>
+            <HighlightIcon />
+          </Avatar>
+          <h1>Sign In</h1>
+          <TextField
+            autoFocus
+            fullWidth
+            label="Username"
+            margin="normal"
+            name="username"
+            onChange={handleChange}
+            required
+            variant="outlined"
+          />
+          <TextField
+            fullWidth
+            label="Password"
+            margin="normal"
+            name="password"
+            onChange={handleChange}
+            required
+            type="password"
+            variant="outlined"
+          />
+          <Button fullWidth variant="contained" onClick={logIn}>
+            Sign In
             {redirect ? <Redirect to={"/note/" + currentUserId} /> : null}
-          </button>
-        </div>
-      </form>
-      {correctLogin ? null : (
-        <p className="loginInfo">
-          The account may have not been created or your login information is not
-          correct. Please try again!
-        </p>
-      )}
+            {correctLogin ? null : (
+              <p className="loginInfo">
+                The account may have not been created or your login information
+                is not correct. Please try again!
+              </p>
+            )}
+          </Button>
+          <Grid container>
+            <Grid item>
+              <a href="/create">{"Don't have an account? Sign up!"}</a>
+            </Grid>
+          </Grid>
+        </form>
+      </Container>
       <Footer />
     </div>
   );
