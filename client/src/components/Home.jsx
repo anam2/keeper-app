@@ -28,7 +28,6 @@ function Home() {
   useEffect(() => {
     setTimeout(() => {
       axios.get("/user").then((response) => {
-        console.log(response);
         setUsers(response.data);
       }, 1000);
     });
