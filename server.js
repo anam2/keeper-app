@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 const url = process.env.ATLAS_URL;
 
 // Express.static --> charge of sending static files requests to the client
-app.use(express.static(path.join(__dirname, "client", "build")));
+app.use(express.static(path.join(__dirname, "client", "public")));
 
 mongoose.connect(url, {
   useNewUrlParser: true,
@@ -37,12 +37,12 @@ const userRouter = require("./routes/user");
 app.use("/user", userRouter);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+  app.use(express.static("client/public"));
 }
 
 // "Catchall" route hander.
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  res.sendFile(path.join(__dirname, "client", "public", "index.html"));
 });
 
 app.listen(port, () => {

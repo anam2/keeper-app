@@ -38,9 +38,7 @@ function CreateAccount() {
       email: "",
     });
     // Posts new user into DB
-    axios
-      .post("http://localhost:5000/user/signup", user)
-      .then((res) => console.log(res.data));
+    axios.post("/user/signup", user).then((res) => console.log(res.data));
 
     // Takes user back to homepage.
     history.push("/");
