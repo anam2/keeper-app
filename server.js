@@ -37,7 +37,6 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
-
 // Routes
 const userRouter = require("./routes/user");
 
@@ -45,16 +44,14 @@ app.use("/user", userRouter);
 
 // Checks to see if application is running on heroku or locally.
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client", "public")));
+  app.use(express.static(path.join("client", "public")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "public", "index.html"));
+  });
   console.log("Running in production mode");
 } else {
   console.log("Running in development mode");
 }
-
-// "Catchall" route hander.
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "public", "index.html"));
-});
 
 app.listen(PORT, () => {
   console.log("Server is running on port: " + PORT);
