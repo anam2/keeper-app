@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -15,14 +15,12 @@ function NoteDashboard(props) {
     },
   ]);
 
-  //  Gets user information from db
-  useEffect(() => {
-    setTimeout(() => {
-      axios.get("/user").then((response) => {
-        const currentUser = response.data.find((user) => user._id === userId);
-        const currentTodoList = currentUser.todoList;
-        setCurrentNotes(currentTodoList);
-      }, 1000);
+  // Gets user information from DB
+  useState(() => {
+    axios.get("/user").then((response) => {
+      const currentUser = response.data.find((user) => user._id === userId);
+      const currentTodoList = currentUser.todoList;
+      setCurrentNotes(currentTodoList);
     });
   }, [userId]);
 

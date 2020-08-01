@@ -28,6 +28,7 @@ router.route("/signup").post((req, res) => {
 
 // Adds a new todoList for the current user
 router.route("/update").post((req, res) => {
+  console.log(req.body);
   const userId = req.body.id;
 
   const newTodoList = {
