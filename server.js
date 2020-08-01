@@ -44,11 +44,12 @@ app.use("/user", userRouter);
 
 // Checks to see if application is running on heroku or locally.
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join("client", "public")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "public", "index.html"));
-  });
   console.log("Running in production mode");
+  app.use(express.static(path.join("client", "public")));
+  // Going to serve up index.html when in heroku(production)
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname + "/client/public/index.html"));
+  });
 } else {
   console.log("Running in development mode");
 }
