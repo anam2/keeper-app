@@ -1,9 +1,18 @@
 import React from "react";
+import axios from "axios";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 function Note(props) {
   function handleOnDelete() {
-    props.deleteNote(props.userId, props.noteId);
+    const userId = props.userId;
+    const noteId = props.noteId;
+    axios
+      .delete("/user/delete/" + userId + "/" + noteId)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
+    props.deleteNote(props.index);
   }
   return (
     <div className="note">

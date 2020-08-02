@@ -25,6 +25,7 @@ function CreateArea(props) {
 
   // Posting note to db
   function submitNote(e) {
+    props.onAdd(note);
     // Clears user's title and content after user clicks submit button
     setNote({
       id: "",
@@ -36,6 +37,7 @@ function CreateArea(props) {
       .post("/user/update", note)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
+    e.preventDefault();
   }
 
   function expand() {

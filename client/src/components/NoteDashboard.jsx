@@ -24,27 +24,33 @@ function NoteDashboard(props) {
     });
   }, [userId]);
 
+  // Adds new Note to currentNotes
+  function addNote(newNote) {
+    setCurrentNotes((prevNotes) => {
+      return [...prevNotes, newNote];
+    });
+  }
+
   // Deletes Note
-  function deleteNote(currentUserId, currentNoteId) {
-    axios
-      .delete("/user/delete/" + currentUserId + "/" + currentNoteId)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => console.log(err));
-    window.location.reload();
+  function deleteNote(noteIndex) {
+    setCurrentNotes((prevNotes) => {
+      return prevNotes.filter((note, index) => {
+        return index !== noteIndex;
+      });
+    });
   }
 
   return (
     <div>
       <Header />
-      <CreateArea id={userId} key={userId} />
+      <CreateArea id={userId} key={userId} onAdd={addNote} />
       {currentNotes.map((note, index) => {
         return (
           <Note
             key={index}
             userId={userId}
             noteId={note._id}
+            index={index}
             title={note.title}
             content={note.content}
             deleteNote={deleteNote}
