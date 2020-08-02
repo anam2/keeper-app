@@ -22,7 +22,7 @@ const url = process.env.ATLAS_URL;
 // Express.static --> charge of sending static files requests to the client
 // path.join --> /_dirname/client/public/
 // Allows us to serve images, CSS files. JS files in directory called public
-app.use(express.static(path.join(__dirname, "client", "public")));
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 // Connecting to mongodb
 mongoose.connect(url, {
@@ -45,10 +45,10 @@ app.use("/user", userRouter);
 // Checks to see if application is running on heroku or locally.
 if (process.env.NODE_ENV === "production") {
   console.log("Running in production mode");
-  app.use(express.static(path.join("client", "public")));
-  // Going to serve up index.html when in heroku(production)
+  app.use(express.static(path.join("client", "build")));
+  // Catchall handler: Any request that doesn't match one above, send back React's index.html file
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname + "/client/public/index.html"));
+    res.sendFile(path.join(__dirname + "/client/build/index.html"));
   });
 } else {
   console.log("Running in development mode");
