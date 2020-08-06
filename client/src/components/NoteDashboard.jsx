@@ -40,6 +40,17 @@ function NoteDashboard(props) {
     });
   }
 
+  // User editing note for UI
+  function editNote(id, index, editedNote) {
+    setCurrentNotes((prevNotes) => {
+      const updateNote = prevNotes.find((note) => note._id === id);
+      updateNote.title = editedNote.editTitle;
+      updateNote.content = editedNote.editContent;
+      prevNotes[index] = updateNote;
+      return [...prevNotes];
+    });
+  }
+
   return (
     <div>
       <Header />
@@ -54,6 +65,7 @@ function NoteDashboard(props) {
             title={note.title}
             content={note.content}
             deleteNote={deleteNote}
+            onEdit={editNote}
           />
         );
       })}

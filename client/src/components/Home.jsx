@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
+import md5 from "md5";
 import {
   Container,
   TextField,
@@ -56,7 +57,7 @@ function Home() {
     if (!currentUser) {
       setCorrectLogin(false);
       return;
-    } else if (currentUser.password === userInput.password) {
+    } else if (currentUser.password === md5(userInput.password)) {
       setCurrentUserId(currentUser._id);
       setRedirect(true);
     } else {

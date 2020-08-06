@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const md5 = require("md5");
 const User = require("../models/user.model");
 
 // Gets users from database
@@ -11,7 +12,7 @@ router.route("/").get((req, res) => {
 // Adds a new user to the userDB
 router.route("/signup").post((req, res) => {
   const username = req.body.username;
-  const password = req.body.password;
+  const password = md5(req.body.password);
   const email = req.body.email;
 
   const newUser = new User({
@@ -53,6 +54,23 @@ router.route("/delete/:userId/:noteId").delete((req, res) => {
 
   User.findOneAndUpdate(filter, update)
     .then(() => res.json("Note Deleted"))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+router.route("/edit/:userId/:noteId").post((req, res) => {
+  const userId = req.params.userId;
+  const noteId = req.params.noteId;
+
+  const editTitle = req.body.editTitle;
+  const editContent = req.body.editContent;
+
+  const filter = { _id: userId };
+  const update = {
+    $set: { todoList: { title: editTitle, content: editContent } },
+  };
+
+  User.findOneAndUpdate(filter, update)
+    .then(() => res.json("Note edited"))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
